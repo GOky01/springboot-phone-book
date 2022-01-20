@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+<div class="container">
+    <div class="col-md-offset-1 col-md-10">
+        <h2>Customer Relationship List</h2>
+        <hr/>
+        <input type="button" value="Add Customer"
+               onclick="window.location.href='showForm'; return false;"
+               class="btn btn-primary"/>
+        <input type="button" value="Add Phone"
+               onclick="window.location.href='showPhoneForm'; return false;"
+               class="btn btn-primary"/>
+        <br/><br/>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Customer List</div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phones</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer : ${customers}">
+                        <c:url var="updateLink" value="/customer/updateForm">
+                            <c:param name="customerId" value="${tempCustomer.id}" />
+                        </c:url>
+
+                        <c:url var="deleteLink" value="/customer/delete">
+                            <c:param name="customerId" value="${tempCustomer.id}" />
+                        </c:url>
+                        <td th:text="${customer.getFirstName()}"/>
+                        <td th:text="${customer.getLastName()}"/>
+                        <td th:text="${customer.getEmail()}"/>
+                        <td th:text="${customer.getPhones()}"/>
+                        <td>
+                            <a href="${updateLink}">Update</a>
+                            | <a href="${deleteLink}"
+                                 onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
